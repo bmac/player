@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <title>Backbone Boilerplate</title>
+
+  <!-- Application styles. -->
+  <link rel="stylesheet" href="/assets/css/index.css">
+</head>
+
+<body>
+  <!-- Main container. -->
+  <div role="main" id="main">
+    <div id="player" class="">
+      <a href="#" class="skip-back">&lt;</a>
+      <a href="#" class="play">|&gt;</a>
+      <a href="#" class="skip-back">&gt;</a>
+      <input type="range" class="player-range" min="0" max="100" step="1"/>
+      <input type="text" class="player-timestamp" />
+      <audio class="player-audio" src="http://shows.kingdomofloathing.com/ahd/vghd79.mp3">
+    </div>
+  </div>
+
+  <!-- Application source. -->
+  <script data-main="/app/config" src="/assets/js/libs/require.js"></script>
+</body>
+</html>
