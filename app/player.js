@@ -14,9 +14,9 @@ function($, _, Backbone) {
 	events: {
 	    // durationchange: '',
 	    // emptied: '',
-	    // ended: '',
-	    // pause: '',
-	    // play: '',
+	    ended: 'showPlayButton',
+	    pause: 'showPlayButton',
+	    play: 'showPauseButton',
 	    'timeupdate audio': 'onTimeupdate'
 //	    volumechange: ''
 	},
@@ -33,8 +33,14 @@ function($, _, Backbone) {
 	    range.prop('value', percent);
 	},
 
+	showPlayButton: function() {
+	    this.$('.play').text('|>');
+	},
+	showPauseButton: function() {
+	    this.$('.play').text('||');
+	},
 	_propagateAudioEvents: function() {
-	    var audioEvents = ['timeupdate'];
+	    var audioEvents = 'timeupdate play pause ended'.split(' ');
 	    var $audio = this.$el.find('audio');
 	    _.each(audioEvents, function(event) {
 		$audio.on(event, function (e) {
