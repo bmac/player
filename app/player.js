@@ -20,14 +20,15 @@ function($, _, Backbone) {
 	    'click .play': 'playAudio',
 	    'click .pause': 'pauseAudio',
 	    'timeupdate audio': 'onTimeupdate',
-	    'change .player-range': 'rangeSeek'
+	    'change .player-range': 'rangeSeek',
+	    'change .player-time': 'inputSeek'
 //	    volumechange: ''
 	},
 	initialize: function() {
 	    this._propagateAudioEvents();
 	    window.audio = this.audio = this.$('audio')[0];
 	    this.$range = this.$('.player-range').val(0);
-	    this.$time = this.$('.player-timestamp');
+	    this.$time = this.$('.player-time');
 	},
 
 	onTimeupdate: function() {
@@ -53,8 +54,12 @@ function($, _, Backbone) {
 	    var newCurrentTime = this.audio.duration * (percent / 100);
 	    this.audio.currentTime = newCurrentTime;
 	},
+	inputSeek: function() {
+	    var newCurrentTime = this._parseSeconds(this.$time.val());
+	    this.audio.currentTime = newCurrentTime;
+	},
 	_propagateAudioEvents: function() {
-	    var audioEvents = 'timeupdate play pause ended'.split(' ');
+	    var audioEvents = 'timeupdate play pause'.split(' ');
 	    var $audio = this.$el.find('audio');
 	    this._propagateEvents($audio, audioEvents);
 	},
@@ -74,6 +79,12 @@ function($, _, Backbone) {
 	    minutes = parseInt( rawSeconds / 60 ) % 60,
 	    seconds = parseInt( rawSeconds )  % 60;
 	    return [minutes, ':', (seconds  < 10 ? "0" + seconds : seconds)].join('');
+	},
+	_parseSeconds: function(value) {
+	    var timeParts = value.split(':');
+	    var seconds = timeParts[1];
+	    var minutes = timeParts[0];
+	    return (60 * minutes) + seconds;
 	}
 
 	});
