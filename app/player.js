@@ -20,21 +20,24 @@ function($, _, Backbone) {
 	    'click .play': 'playAudio',
 	    'click .pause': 'pauseAudio',
 	    'timeupdate audio': 'onTimeupdate',
-	    'change .player-range': 'rangeSeek',
-	    'change .player-time': 'inputSeek'
+	    'change .player-duration': 'durationSeek',
+	    'change .player-time': 'inputSeek',
+	    'change .player-volume': 'volumeChange'
 //	    volumechange: ''
 	},
-	initialize: function() {
+	initialize: function(options) {
+	    options = options || {};
 	    this._propagateAudioEvents();
 	    window.audio = this.audio = this.$('audio')[0];
-	    this.$range = this.$('.player-range').val(0);
+	    this.$duration = this.$('.player-duration').val(0);
 	    this.$time = this.$('.player-time');
+	    this.$volumeRange = this.$('.player-volume');
 	},
 
 	onTimeupdate: function() {
 	    var percent = Math.floor((this.audio.currentTime / this.audio.duration) * 100) || 0;
-	    this.$range.val(percent);
-	    // If the input has focus do not update it because we don't want to override a change the user is working on?
+	    this.$duration.val(percent);
+	    // If the input has focus do not update it because we don't want to override a change the user is working on
 	    if (!this.$time.is(':focus')) {
 		this.$time.val(this._formatTime(this.audio.currentTime));
 	    }
@@ -52,14 +55,21 @@ function($, _, Backbone) {
 	pauseAudio: function() {
 	    this.audio.pause();
 	},
-	rangeSeek: function() {
-	    var percent = this.$range.val();
+	durationSeek: function() {
+	    var percent = this.$duration.val();
 	    var newCurrentTime = this.audio.duration * (percent / 100);
 	    this.audio.currentTime = newCurrentTime;
 	},
 	inputSeek: function() {
 	    var newCurrentTime = this._parseSeconds(this.$time.val());
 	    this.audio.currentTime = newCurrentTime;
+	},
+	setSource: function(newSrc) {
+	    this.audio.src = newSrc;
+	},
+	volumeChange: function() {
+	    var volume = this.$volumeRange.val();
+	    this.audio.volume = volume;
 	},
 	_propagateAudioEvents: function() {
 	    var audioEvents = 'timeupdate play pause'.split(' ');
