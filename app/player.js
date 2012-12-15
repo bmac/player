@@ -34,7 +34,10 @@ function($, _, Backbone) {
 	onTimeupdate: function() {
 	    var percent = Math.floor((this.audio.currentTime / this.audio.duration) * 100) || 0;
 	    this.$range.val(percent);
-	    this.$time.val(this._formatTime(this.audio.currentTime));
+	    // If the input has focus do not update it because we don't want to override a change the user is working on?
+	    if (!this.$time.is(':focus')) {
+		this.$time.val(this._formatTime(this.audio.currentTime));
+	    }
 	},
 
 	showPlayButton: function() {
@@ -82,8 +85,8 @@ function($, _, Backbone) {
 	},
 	_parseSeconds: function(value) {
 	    var timeParts = value.split(':');
-	    var seconds = timeParts[1];
-	    var minutes = timeParts[0];
+	    var seconds = parseInt(timeParts[1], 10);
+	    var minutes = parseInt(timeParts[0], 10);
 	    return (60 * minutes) + seconds;
 	}
 
