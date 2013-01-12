@@ -91,9 +91,9 @@ function($, _, Backbone) {
 
 	},
 	_formatTime: function(rawSeconds) {
-	    var hours = parseInt( rawSeconds / 3600, 10 ) % 24,
-	    minutes = parseInt( rawSeconds / 60, 10 ) % 60,
-	    seconds = parseInt( rawSeconds, 10 )  % 60;
+	    var hours = Math.floor( rawSeconds / 3600 ) % 24,
+	    minutes = Math.floor( rawSeconds / 60 ) % 60,
+	    seconds = Math.floor( rawSeconds )  % 60;
 	    return [minutes, ':', (seconds  < 10 ? "0" + seconds : seconds)].join('');
 	},
 	_parseSeconds: function(value) {
