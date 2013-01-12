@@ -22,8 +22,8 @@ function($, _, Backbone) {
 	    'timeupdate audio': 'onTimeupdate',
 	    'change .player-duration': 'durationSeek',
 	    'change .player-time': 'inputSeek',
-	    'change .player-volume': 'volumeChange'
-//	    volumechange: ''
+	    'change .player-volume': 'volumeChange',
+	    volumechange: 'updateVolumeSlider'
 	},
 	initialize: function(options) {
 	    options = options || {};
@@ -71,8 +71,11 @@ function($, _, Backbone) {
 	    var volume = this.$volumeRange.val();
 	    this.audio.volume = volume;
 	},
+	updateVolumeSlider: function() {
+	    this.$volumeRange.val(this.audio.volume);
+	},
 	_propagateAudioEvents: function() {
-	    var audioEvents = 'timeupdate play pause'.split(' ');
+	    var audioEvents = 'timeupdate play pause volumechange'.split(' ');
 	    var $audio = this.$el.find('audio');
 	    this._propagateEvents($audio, audioEvents);
 	},
@@ -88,9 +91,9 @@ function($, _, Backbone) {
 
 	},
 	_formatTime: function(rawSeconds) {
-	    var hours = parseInt( rawSeconds / 3600 ) % 24,
-	    minutes = parseInt( rawSeconds / 60 ) % 60,
-	    seconds = parseInt( rawSeconds )  % 60;
+	    var hours = parseInt( rawSeconds / 3600, 10 ) % 24,
+	    minutes = parseInt( rawSeconds / 60, 10 ) % 60,
+	    seconds = parseInt( rawSeconds, 10 )  % 60;
 	    return [minutes, ':', (seconds  < 10 ? "0" + seconds : seconds)].join('');
 	},
 	_parseSeconds: function(value) {
