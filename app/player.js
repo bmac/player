@@ -35,14 +35,19 @@ function($, _, Backbone) {
 	},
 
 	onTimeupdate: function() {
+		this.updateRangeSliderValue();
+		this.updateTimeStamp();
+	},
+	updateRangeSliderValue: function() {
 	    var percent = Math.floor((this.audio.currentTime / this.audio.duration) * 100) || 0;
 	    this.$duration.val(percent);
+	},
+	updateTimeStamp: function() {
 	    // If the input has focus do not update it because we don't want to override a change the user is working on
 	    if (!this.$time.is(':focus')) {
-		this.$time.val(this._formatTime(this.audio.currentTime));
+			this.$time.val(this._formatTime(this.audio.currentTime));
 	    }
 	},
-
 	showPlayButton: function() {
 	    this.$('.pause').text('|>').removeClass('pause').addClass('play');
 	},

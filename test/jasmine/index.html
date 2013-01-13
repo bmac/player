@@ -24,11 +24,23 @@
   <!-- Load application -->
   <script data-main="../../app/config"
     src="../../assets/js/libs/require.js"></script>
+    <div id="player" class="">
+      <a href="#" class="skip-back">&lt;</a>
+      <a href="#" class="play">|&gt;</a>
+      <a href="#" class="skip-back">&gt;</a>
+      <input type="range" class="player-duration" min="0" max="100" step="1"/>
+      <input type="text" class="player-time" />
+      <input type="range" class="player-volume" min="0" max="1" value="1" step="0.05"/>
+      <!-- <audio class="player-audio" src="http://shows.kingdomofloathing.com/ahd/vghd79.mp3"> -->
+      <audio class="player-audio" src="https://dl.dropbox.com/s/hp9gkx5armw9yq9/bornToRun.mp3?dl=1">
+    </div>
+  </div>
 
   <!-- Declare your spec files to be run here -->
   <script>
     // Ensure you point to where your spec folder is, base directory is app/,
     // which is why ../test is necessary
+    $('audio').on('loadeddata', function() {
     require({ paths: { spec: "../test/jasmine/spec" } }, [
 
       // Load the example spec, replace this and add your own spec
@@ -38,6 +50,7 @@
       // Set up the jasmine reporters once each spec has been loaded
       jasmine.getEnv().addReporter(new jasmine.TrivialReporter());
       jasmine.getEnv().execute();
+    });
     });
   </script>
 </body>
