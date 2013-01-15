@@ -15,6 +15,10 @@ define(['player'], function(player) {
       expect(playerView.$volumeRange).toBeTruthy();
     });
 
+    it("should have a play button", function() {
+      expect(playerView.$('.play').text()).tobe('|>');
+    });
+
     describe("when a timeupdate event is triggered", function() {
       beforeEach(function() {
         playerView = new player.PlayerView();
