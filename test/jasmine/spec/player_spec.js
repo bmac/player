@@ -1,8 +1,14 @@
 define(['player'], function(player) {
   describe("PlayerView", function() {
     var playerView;
+    var reset_audio_element = function(playerView) {
+        playerView.audio.currentTime = 0;
+        playerView.$duration.val('0');
+        playerView.$time.val('');
+    };
     beforeEach(function() {
       playerView = new player.PlayerView();
+      reset_audio_element(playerView);
     });
 
     afterEach(function() {
@@ -16,15 +22,13 @@ define(['player'], function(player) {
     });
 
     it("should have a play button", function() {
-      expect(playerView.$('.play').text()).tobe('|>');
+      expect(playerView.$('.play').text()).toBe('|>');
     });
 
     describe("when a timeupdate event is triggered", function() {
       beforeEach(function() {
         playerView = new player.PlayerView();
-        audio.currentTime = 0;
-        playerView.$duration.val('0');
-        playerView.$time.val('');
+	reset_audio_element(playerView);
       });
 
       it("should update the position of the range slider", function() {
@@ -32,16 +36,17 @@ define(['player'], function(player) {
         audio.currentTime = audio.duration / 2;
         expect(playerView.$duration.val()).toBe('0');
         $(audio).trigger('timeupdate');
-        expect(playerView.$duration.val()).toBe('50');        
+        expect(playerView.$duration.val()).toBe('50');
       });
 
       it("should update value of the time input", function() {
         var audio = playerView.audio;
+	audio.currentTime = 0;
         $(audio).trigger('timeupdate');
-        expect(playerView.$time.val()).toBe('0:00');        
+        expect(playerView.$time.val()).toBe('0:00');
         audio.currentTime = audio.duration / 2;
         $(audio).trigger('timeupdate');
-        expect(playerView.$time.val()).toBe('2:15');        
+        expect(playerView.$time.val()).toBe('2:15');
         });
 
     });
