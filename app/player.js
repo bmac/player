@@ -11,6 +11,8 @@ function($, _, Backbone) {
     var player = Backbone.View.extend({
 
         el: '#player',
+	PLAY_HTML:'|>',
+	PAUSE_HTML: '||',
         events: {
             // durationchange: '',
             // emptied: '',
@@ -49,10 +51,10 @@ function($, _, Backbone) {
             }
         },
         showPlayButton: function() {
-            this.$('.pause').text('|>').removeClass('pause').addClass('play');
+            this.$('.pause').html(this.PLAY_HTML).removeClass('pause').addClass('play');
         },
         showPauseButton: function() {
-            this.$('.play').text('||').removeClass('play').addClass('pause');
+            this.$('.play').html(this.PAUSE_HTML).removeClass('play').addClass('pause');
         },
         playAudio: function() {
             this.audio.play();
