@@ -59,5 +59,11 @@ define(['player'], function(player) {
             expect(audio.volume).toBe(0.5);
         });
 
+	it("should update value of the volume slider", function() {
+            var audio = playerView.audio;
+	    audio.volume = 0.5;
+	    expect(playerView.$volumeRange.val()).toBe('0.5');
+        });
+
     });
 });
