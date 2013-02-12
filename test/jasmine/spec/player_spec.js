@@ -65,5 +65,12 @@ define(['player'], function(player) {
 	    expect(playerView.$volumeRange.val()).toBe('0.5');
         });
 
+
+	it("should show the play html when paused", function() {
+            var audio = playerView.audio;
+	    audio.pause();
+	    expect(playerView.$('.play').html()).toBe(playerView.PLAY_HTML);
+        });
+
     });
 });
