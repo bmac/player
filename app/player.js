@@ -21,6 +21,7 @@ function($, _, Backbone) {
             play: 'showPauseButton',
             'click .play': 'playAudio',
             'click .pause': 'pauseAudio',
+	    'click .skip': 'skipAudio',
             'timeupdate audio': 'onTimeupdate',
             'change .player-duration': 'durationSeek',
             'change .player-time': 'inputSeek',
@@ -62,6 +63,11 @@ function($, _, Backbone) {
         pauseAudio: function() {
             this.audio.pause();
         },
+	skipAudio: function(event) {
+	    var skipDelta = $(event.target).data('skipDelta');
+	    var currentTime = this.audio.currentTime;
+	    this.audio.currentTime = currentTime + skipDelta;
+	},
         durationSeek: function() {
             var percent = this.$duration.val();
             var newCurrentTime = this.audio.duration * (percent / 100);
