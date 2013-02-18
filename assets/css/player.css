@@ -2,13 +2,25 @@
 @import "../vendor/h5bp/css/normalize.css";
 @import "../vendor/h5bp/css/main.css";
 
-/* Add Stylus stylesheets here, alll files ending in .styl will be compiled!
- * For example: @import "main.styl";
- *
- * Note: All stylesheets are relative to `assets/css`.
- *
- */ 
+html, body {
+    height: 100%;
+    background: #696969;
+}
 
+#main {
+    position: absolute;
+    top: 40%;
+    width: 100%;
+}
 
+#player {
+    margin: 0 auto;
+    width: 500px;
+}
 
-/* Put development-only CSS below this line. */
+.player-time {
+    background: #D3D3D3;
+    width: 50px;
+    text-align:right;
+}
+
