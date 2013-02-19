@@ -39,6 +39,10 @@ function(app, Router, player) {
     }
   });
 
-    window.pv = new player.PlayerView();
+    var playerModel = new Backbone.Model({
+	src: 'https://dl.dropbox.com/s/hp9gkx5armw9yq9/bornToRun.mp3?dl=1'
+    });
+
+    window.pv = new player.PlayerView({model: playerModel});
 
 });

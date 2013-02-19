@@ -30,11 +30,15 @@ function($, _, Backbone) {
         },
         initialize: function(options) {
             options = options || {};
+	    this.model = options.model;
             this._propagateAudioEvents();
             window.audio = this.audio = this.$('audio')[0];
             this.$duration = this.$('.player-duration').val(0);
             this.$time = this.$('.player-time');
             this.$volumeRange = this.$('.player-volume');
+	    if (this.model) {
+		$(this.audio).attr('src', this.model.get('src'));
+	    }
         },
 
         onTimeupdate: function() {

@@ -65,6 +65,18 @@ define(['player'], function(player) {
 	    expect(playerView.$volumeRange.val()).toBe('0.5');
         });
 
+	it("should allow the user to skip forward by 30 seconds", function() {
+            var audio = playerView.audio;
+	    audio.currentTime = 0;
+	    playerView.$('.skip[data-skip-delta=30]').click();
+	    expect(audio.currentTime).toBe(30);
+        });
+
+	// it("should show the pause html when playing", function() {
+        //     var audio = playerView.audio;
+	//     audio.play();
+	//     expect(playerView.$('.play').html()).toBe(playerView.PAUSE_HTML);
+        // });
 
 	it("should show the play html when paused", function() {
             var audio = playerView.audio;
