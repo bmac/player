@@ -1,9 +1,10 @@
 define([
   // Application.
-  "app"
+  "app",
+  "player"
 ],
 
-function(app) {
+function(app, player) {
 
   // Defining the application router, you can attach sub routers here.
   var Router = Backbone.Router.extend({
@@ -12,7 +13,11 @@ function(app) {
     },
 
     index: function() {
+	var playerModel = new Backbone.Model({
+            src: 'https://dl.dropbox.com/s/hp9gkx5armw9yq9/bornToRun.mp3?dl=1'
+        });
 
+        window.pv = new player.PlayerView({model: playerModel});
     }
   });
 
