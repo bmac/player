@@ -4,7 +4,7 @@ require([
 ],
 
         function(app, Router, player) {
-
+	    window.app = app;
             app.router = new Router();
 
             // Trigger the initial route and enable HTML5 History API support, set the

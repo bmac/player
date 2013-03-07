@@ -39,6 +39,7 @@ function($, _, Backbone) {
 	    if (this.model) {
 		$(this.audio).attr('src', this.model.get('src'));
 	    }
+	    this._bindSpaceToPlayPause();
         },
 
         onTimeupdate: function() {
@@ -67,6 +68,13 @@ function($, _, Backbone) {
         pauseAudio: function() {
             this.audio.pause();
         },
+	playPauseAudio: function() {
+	    if (this.$('.play').length) {
+		this.playAudio();
+	    } else {
+		this.pauseAudio();
+	    }
+	},
 	skipAudio: function(event) {
 	    var skipDelta = $(event.target).data('skipDelta');
 	    var currentTime = this.audio.currentTime;
@@ -118,7 +126,15 @@ function($, _, Backbone) {
             var seconds = parseInt(timeParts[1], 10);
             var minutes = parseInt(timeParts[0], 10);
             return (60 * minutes) + seconds;
-        }
+        },
+	_bindSpaceToPlayPause: function() {
+	    var playerView = this;
+	    $(window).on('keydown', function(event) {
+		if (event.keyCode === 32) {
+		    playerView.playPauseAudio();
+		}
+	    });
+	}
 
         });
 
