@@ -9,8 +9,8 @@ function(app, player) {
   // Defining the application router, you can attach sub routers here.
   var Router = Backbone.Router.extend({
     routes: {
-      "": "index",
-      '/asdf': 'play'
+	'': 'index',
+	'play/*path': 'playFile'
     },
 
     index: function() {
@@ -20,8 +20,12 @@ function(app, player) {
 
         window.pv = new player.PlayerView({model: playerModel});
     },
-    play: function() {
-	console.log(arguments);
+    playFile: function(path) {
+	var playerModel = new Backbone.Model({
+            src: path
+        });
+
+        window.pv = new player.PlayerView({model: playerModel});
     }
   });
 
