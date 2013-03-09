@@ -32,7 +32,7 @@ function($, _, Backbone) {
             options = options || {};
 	    this.model = options.model;
             this._propagateAudioEvents();
-            window.audio = this.audio = this.$('audio')[0];
+            this.audio = this.$('audio')[0];
             this.$duration = this.$('.player-duration').val(0);
             this.$time = this.$('.player-time');
             this.$volumeRange = this.$('.player-volume');
