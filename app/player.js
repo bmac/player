@@ -11,7 +11,7 @@ function($, _, Backbone) {
     var player = Backbone.View.extend({
 
         el: '#player',
-	PLAY_HTML:'|&gt;',
+	PLAY_HTML:'▶',
 	PAUSE_HTML: '||',
         events: {
             // durationchange: '',
